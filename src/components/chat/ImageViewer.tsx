@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, { useState } from 'react';
 
 interface ImageViewerProps {
@@ -63,7 +64,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, caption, onClose })
       onMouseMove={handleMouseMove}
     >
       <div className="relative max-w-full max-h-[90vh] overflow-hidden">
-        <img
+        <Image
           src={imageUrl}
           alt="Fullscreen image"
           className="max-w-full max-h-[80vh] object-contain transition-transform duration-100"

@@ -4,6 +4,7 @@ import websocketService from '@/utils/websocket';
 import * as storage from '@/utils/storage';
 import { toast } from 'react-toastify';
 import { Message } from '@/hooks/useChatMessages';
+import Image from 'next/image';
 
 interface MessageInputProps {
   chatId: string;
@@ -136,11 +137,6 @@ const MessageInput: React.FC<MessageInputProps> = ({
       setIsRateLimited(true);
       setRemainingTime(secondsRemaining);
 
-      const rateLimitTimer = setTimeout(() => {
-        setIsRateLimited(false);
-        setRemainingTime(0);
-      }, timeUntilNextSlot);
-
       return;
     }
 
@@ -259,7 +255,7 @@ const MessageInput: React.FC<MessageInputProps> = ({
       {/* Image preview */}
       {imagePreview && (
         <div className="mb-3 relative">
-          <img
+          <Image
             src={imagePreview}
             alt="Selected image"
             className="h-32 rounded-lg object-contain bg-gray-700 p-1"

@@ -47,7 +47,7 @@ const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onClose }) => {
           
           <h4 className="font-semibold mt-4 mb-2">No Warranty</h4>
           <p className="mb-4">
-            AnnonChat is provided "as is" and "as available" without any warranties of any kind, either express or implied, including but not limited to the implied warranties of merchantability, fitness for a particular purpose, or non-infringement.
+            AnnonChat is provided &ldquo;as is&ldquo; and &ldquo;as available&ldquo; without any warranties of any kind, either express or implied, including but not limited to the implied warranties of merchantability, fitness for a particular purpose, or non-infringement.
           </p>
           
           <h4 className="font-semibold mt-4 mb-2">Prohibited Content</h4>

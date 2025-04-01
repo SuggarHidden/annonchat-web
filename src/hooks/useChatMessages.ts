@@ -21,11 +21,11 @@ interface UseChatMessagesProps {
   lastReadMessageId?: string;
 }
 
-export function useChatMessages({ 
-  chatId, 
-  encryptionKey, 
+export function useChatMessages({
+  chatId,
+  encryptionKey,
   userId,
-  lastReadMessageId 
+  lastReadMessageId
 }: UseChatMessagesProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +36,7 @@ export function useChatMessages({
   useEffect(() => {
     setMessages([]);
     setNewMessageDivider(null);
-    
+
     const loadMessages = async () => {
       try {
         setIsLoading(true);
@@ -107,8 +107,7 @@ export function useChatMessages({
       try {
         if (data.type === 'message' && data.sender !== userId) {
           let decryptedContent = '';
-          let decryptionFailed = false;
-          let messageType: 'text' | 'image' = data.messageType || 'text';
+          const messageType: 'text' | 'image' = data.messageType || 'text';
           let imageData: string | undefined;
 
           try {
@@ -130,7 +129,6 @@ export function useChatMessages({
             }
           } catch (error) {
             console.error('Error decrypting message:', error);
-            decryptionFailed = true;
             return;
           }
 

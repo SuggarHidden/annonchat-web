@@ -6,7 +6,6 @@ import MessageItem from './MessageItem';
 import MessageInput from './MessageInput';
 import ImageViewer from './ImageViewer';
 import DeleteChatModal from './DeleteChatModal';
-import Image from 'next/image';
 
 interface ChatWindowProps {
   chatName: string;
@@ -34,7 +33,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   const { 
     messages, 
     isLoading, 
-    error, 
     newMessageDivider,
     setMessages 
   } = useChatMessages({

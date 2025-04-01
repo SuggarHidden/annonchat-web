@@ -9,7 +9,6 @@ interface EditChatModalProps {
 }
 
 const EditChatModal: React.FC<EditChatModalProps> = ({
-  chatId,
   initialName,
   onNameChange,
   onClose,

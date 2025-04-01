@@ -209,7 +209,7 @@ export default function Home() {
                   chats={chats}
                   selectedChat={selectedChat}
                   lastMessages={lastMessages}
-                  onSelectChat={(id, key) => {
+                  onSelectChat={(id) => {
                     setSelectedChat(id);
                     if (isMobileView) {
                       setShowChatList(false);

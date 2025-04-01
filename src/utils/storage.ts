@@ -14,7 +14,7 @@ const initDB = (): Promise<IDBDatabase> => {
 
     request.onsuccess = () => resolve(request.result);
 
-    request.onupgradeneeded = (event) => {
+    request.onupgradeneeded = () => {
       const db = request.result;
       if (!db.objectStoreNames.contains(IMAGES_STORE)) {
         db.createObjectStore(IMAGES_STORE, { keyPath: 'id' });
@@ -96,13 +96,13 @@ export const storeMessages = async (chatId: string, messages: any[]): Promise<vo
     return new Promise((resolve, reject) => {
       const transaction = db.transaction([MESSAGES_STORE], 'readwrite');
       const store = transaction.objectStore(MESSAGES_STORE);
-      
+
       // Store all messages, including image messages
       const request = store.put({ chatId, messages: messages });
-      
+
       request.onsuccess = () => resolve();
       request.onerror = () => reject(request.error);
-      
+
       transaction.oncomplete = () => db.close();
     });
   } catch (error) {
@@ -127,16 +127,16 @@ export const getMessages = async (chatId: string): Promise<any[] | null> => {
     return new Promise((resolve, reject) => {
       const transaction = db.transaction([MESSAGES_STORE], 'readonly');
       const store = transaction.objectStore(MESSAGES_STORE);
-      
+
       const request = store.get(chatId);
-      
+
       request.onsuccess = () => {
         const result = request.result;
         resolve(result ? result.messages : null);
       };
-      
+
       request.onerror = () => reject(request.error);
-      
+
       transaction.oncomplete = () => db.close();
     });
   } catch (error) {
@@ -151,12 +151,12 @@ export const deleteChat = async (chatId: string): Promise<void> => {
     return new Promise((resolve, reject) => {
       const transaction = db.transaction([MESSAGES_STORE], 'readwrite');
       const store = transaction.objectStore(MESSAGES_STORE);
-      
+
       const request = store.delete(chatId);
-      
+
       request.onsuccess = () => resolve();
       request.onerror = () => reject(request.error);
-      
+
       transaction.oncomplete = () => db.close();
     });
   } catch (error) {
@@ -172,15 +172,15 @@ export const clearAllData = async (): Promise<void> => {
       const transaction = db.transaction([MESSAGES_STORE, IMAGES_STORE], 'readwrite');
       const messagesStore = transaction.objectStore(MESSAGES_STORE);
       const imagesStore = transaction.objectStore(IMAGES_STORE);
-      
-      const clearMessagesRequest = messagesStore.clear();
-      const clearImagesRequest = imagesStore.clear();
-      
+
+      messagesStore.clear();
+      imagesStore.clear();
+
       transaction.oncomplete = () => {
         db.close();
         resolve();
       };
-      
+
       transaction.onerror = () => reject(transaction.error);
     });
   } catch (error) {

@@ -15,11 +15,6 @@ export function useUserId() {
     }
   }, []);
 
-  const updateUserId = (newId: string) => {
-    localStorage.setItem('userId', newId);
-    setUserId(newId);
-  };
-
   // Return just the userId string instead of an object with a function
   return userId;
 }

@@ -1,6 +1,21 @@
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
 export const runtime = "edge";
 
 export default function NotFound() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.push("/");
+    }, 3000); // Redirige después de 3 segundos
+
+    return () => clearTimeout(timer);
+  }, [router]);
+
   return (
     <>
       <title>404: This page could not be found.</title>
@@ -11,11 +26,10 @@ export default function NotFound() {
               __html: `body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}`,
             }}
           />
-          <h1 className="next-error-h1" style={styles.h1}>
-            404
-          </h1>
+          <h1 className="next-error-h1" style={styles.h1}>404</h1>
           <div style={styles.desc}>
             <h2 style={styles.h2}>This page could not be found.</h2>
+            <p style={styles.h2}>Redirecting to main page...</p>
           </div>
         </div>
       </div>

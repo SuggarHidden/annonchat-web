@@ -1,5 +1,6 @@
 import React from 'react';
 import { Message } from '@/hooks/useChatMessages';
+import Image from 'next/image';
 
 interface MessageItemProps {
   message: Message;
@@ -33,7 +34,7 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, userId, onImageClick
         {/* Display message content based on type */}
         {message.type === 'image' && message.imageData ? (
           <div>
-            <img
+            <Image
               src={message.imageData}
               alt="Shared image"
               className="rounded-lg max-w-full max-h-[300px] object-contain mb-2 cursor-pointer hover:opacity-90 transition-opacity"
