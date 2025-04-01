@@ -55,16 +55,16 @@ export const metadata: Metadata = {
     apple: "/favicon.ico",
   },
   openGraph: {
-    title: "AnnoChat - Anonimous Chat",
+    title: "AnnonChat - Anonimous Chat",
     description: "A simple encrypted chat app made with <3 by SuggarHidden",
     url: "https://annonchat.suggarhidden.dev",
-    siteName: "AnnoChat - Anonimous Chat",
+    siteName: "AnnonChat - Anonimous Chat",
     images: [
       {
         url: "/logo.png",
         width: 512,
         height: 512,
-        alt: "AnnoChat - Anonimous Chat",
+        alt: "AnnonChat - Anonimous Chat",
       },
     ],
     locale: "en_US",
@@ -72,7 +72,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AnnoChat - Anonimous Chat",
+    title: "AnnonChat - Anonimous Chat",
     description: "A simple encrypted chat app made with <3 by SuggarHidden",
     images: ["/logo.png"],
   },
