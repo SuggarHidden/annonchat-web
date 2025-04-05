@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { useStatsStore } from '@/store/statsStore';
 import Image from 'next/image';

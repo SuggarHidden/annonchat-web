@@ -1,18 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import Image from "next/image";
 import { useChats } from "@/hooks/useChats";
 import { useStatsStore } from "@/store/statsStore";
 import ChatList from "@/components/chat/ChatList";
-import ChatWindow from "@/components/chat/ChatWindow";
-import NewChatModal from "@/components/chat/NewChatModal";
-import StatsDisplay from "@/components/StatsDisplay";
-import TermsModal from "@/components/TermsModal";
-import PrivacyModal from "@/components/PrivacyModal";
+
+// Lazy load components that aren't needed immediately
+const ChatWindow = lazy(() => import("@/components/chat/ChatWindow"));
+const NewChatModal = lazy(() => import("@/components/chat/NewChatModal"));
+const StatsDisplay = lazy(() => import("@/components/StatsDisplay"));
+const TermsModal = lazy(() => import("@/components/TermsModal"));
+const PrivacyModal = lazy(() => import("@/components/PrivacyModal"));
 import Ad_50_320 from "@/components/ads/Ad_50_320";
 import Ad_600_160 from "@/components/ads/Ad_600_160";
 import Ad_300_160 from "@/components/ads/Ad_300_160";
+import Ad_250_300 from "@/components/ads/Ad_250_300";
 import websocketService from "@/utils/websocket";
 import { decrypt } from "@/utils/encryption";
 import * as storage from '@/utils/storage';
@@ -49,6 +52,21 @@ export default function Home() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Add ESC key handler to deselect current chat
+  useEffect(() => {
+    const handleEscKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && selectedChat) {
+        setSelectedChat(null);
+        if (isMobileView) {
+          setShowChatList(true);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleEscKey);
+    return () => window.removeEventListener('keydown', handleEscKey);
+  }, [selectedChat, isMobileView, setSelectedChat]);
 
   // When a chat is selected on mobile, hide the list
   useEffect(() => {
@@ -224,7 +242,7 @@ export default function Home() {
 
           {/* Right panel - Chat window */}
           {(!isMobileView || !showChatList || !selectedChat) && (
-            <div className={`${isMobileView ? 'w-full h-full' : 'w-full md:w-3/4'} flex flex-col`}>
+            <div className={`${isMobileView && showChatList ? 'hidden' : ''} ${isMobileView ? 'w-full h-full' : 'w-full md:w-3/4'} flex flex-col`}>
               {selectedChat ? (
                 <ChatWindow
                   chatName={chats.find(chat => chat.id === selectedChat)?.name || ""}
@@ -235,8 +253,9 @@ export default function Home() {
                   onChatDeleted={handleChatDeleted}
                 />
               ) : (
-                <div className="flex-1 flex items-center justify-center bg-gray-900 rounded-r-2xl">
-                  <p className="text-gray-500">Select a chat to begin</p>
+                <div className="hidden sm:flex flex-1 flex-col gap-4 items-center justify-center bg-gray-900 rounded-r-2xl">
+                  <p className="text-gray-500 text-2xl">Select a chat or create a new one to start chatting...</p>
+                  <Ad_250_300 />
                 </div>
               )}
             </div>
@@ -283,10 +302,12 @@ export default function Home() {
 
       {/* New Chat Modal */}
       {isModalOpen && (
-        <NewChatModal
-          onClose={() => setIsModalOpen(false)}
-          onAddChat={handleAddChat}
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+          <NewChatModal
+            onClose={() => setIsModalOpen(false)}
+            onAddChat={handleAddChat}
+          />
+        </Suspense>
       )}
       {/*       <Ad_Social_Bar /> */}
     </main>

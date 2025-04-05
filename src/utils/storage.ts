@@ -1,4 +1,4 @@
-// Utility for storing and retrieving data using IndexedDB
+"use client";
 
 const DB_NAME = 'annonChatDB';
 const DB_VERSION = 1;

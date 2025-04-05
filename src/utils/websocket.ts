@@ -1,3 +1,5 @@
+"use client";
+
 type MessageCallback = (message: any) => void;
 import { toast } from 'react-toastify';
 

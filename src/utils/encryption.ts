@@ -1,3 +1,4 @@
+"use client";
 export async function encrypt(text: string, password: string): Promise<string> {
   // Convertir la contraseña y el texto a ArrayBuffer
   const encoder = new TextEncoder();

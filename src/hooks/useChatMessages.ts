@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from 'react';
 import * as storage from '@/utils/storage';
 import { decrypt } from '@/utils/encryption';
