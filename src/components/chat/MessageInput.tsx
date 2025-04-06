@@ -4,7 +4,6 @@ import websocketService from '@/utils/websocket';
 import * as storage from '@/utils/storage';
 import { toast } from 'react-toastify';
 import { Message } from '@/hooks/useChatMessages';
-import Image from 'next/image';
 
 interface MessageInputProps {
   chatId: string;
@@ -255,7 +254,7 @@ const MessageInput: React.FC<MessageInputProps> = ({
       {/* Image preview */}
       {imagePreview && (
         <div className="mb-3 relative">
-          <Image
+          <img
             src={imagePreview}
             alt="Selected image"
             className="h-32 rounded-lg object-contain bg-gray-700 p-1"

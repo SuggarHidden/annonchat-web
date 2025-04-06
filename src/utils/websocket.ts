@@ -224,7 +224,7 @@ class WebSocketService {
   }
 }
 
-export const websocketService = new WebSocketService(`wss://${process.env.NEXT_PUBLIC_API_URL}/ws`);
+export const websocketService = new WebSocketService(`${process.env.NEXT_PUBLIC_API_URL}`);
 
 setTimeout(() => {
   websocketService.initialize();
